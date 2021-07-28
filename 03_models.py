@@ -49,10 +49,15 @@ batch_size = 64
 epochs = 100
 # %% Training
 loss_fn = nn.CrossEntropyLoss()
+# loss_fn = nn.MSELoss()
+
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 
 size = len(train_dataloader.dataset)
+
+# X uses One hot encoding y is a number but the loss function gets it right
+
 for batch, (X, y) in enumerate(train_dataloader):
     # Compute prediction and loss
     pred = model(X)
