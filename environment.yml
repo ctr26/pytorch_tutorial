@@ -1,0 +1,20 @@
+# conda env create --file environment.yml --force
+name: torch
+channels:
+  - pytorch
+  - conda-forge
+  - anaconda
+dependencies:
+  - pip
+  - python
+  - jupyter
+  - jupyterlab
+  - pytorch
+  - ipykernel
+  - ipython
+  - cudatoolkit
+  - torchvision
+  - ipynb-py-convert
+  # - pip:
+    # - numpy=4.0
+    # - -r file:requirements.txt
