@@ -1,2 +1,3 @@
+To install the conda environment needed for these demos
     make
-To install the conda evironment needed for these demos
+    conda activate torch
