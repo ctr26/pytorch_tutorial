@@ -5,6 +5,7 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 import torchvision.models as models
+# !pip install monai
 import monai
 from PIL import Image
 import torchvision.transforms.functional as F
