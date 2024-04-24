@@ -1,10 +1,8 @@
 # Learning point: understand basic PyTorch concepts and how to train a simple MLP model
 
-
 """
 Task:  fix this buggy code in the code
 """
-
 import torch
 from torch import nn
 from torchvision import datasets, transforms
@@ -15,6 +13,7 @@ import numpy as np
 
 torch.manual_seed(42)
 
+#%%  
 
 class NeuralNetwork(nn.Module):
     def __init__(self):
@@ -39,7 +38,8 @@ class NeuralNetwork(nn.Module):
         probabilities = self.softmax(logits)
         return probabilities
 
-
+#%%  
+# Load MNIST dataset
 # Import to rescale the image to [-1, 1] to match activation functions
 transform = transforms.Compose(
     [transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))]
@@ -52,29 +52,32 @@ train_data = datasets.MNIST(
 test_data = datasets.MNIST(
     root="./data", train=False, download=True, transform=transform
 )
-
+#%%  
 # Prepare the dataloaders, shuffle the data, and set the batch size
 # Batches are used to update the model weights because we can't pass the entire dataset at once
 train_dataloader = DataLoader(train_data, batch_size=64, shuffle=True)
 test_dataloader = DataLoader(test_data, batch_size=64, shuffle=True)
-
+#%%  
 # Initialize the model
 model = NeuralNetwork()
 print(model)
-
+#%%  
+# MNIST dataset
+test_tensor = train_data[0]
+print("Image shape:", test_tensor[0].shape, "Class:", test_tensor[1])
+#%%  
 print("Test model forward pass")
-assert model(train_data[0][0]).shape == (1, 10), "Model output shape is incorrect"
-
+assert model(test_tensor[0]).shape == (1, 10), "Model output shape is incorrect"
+#%%  
 learning_rate = 1e-3
 epochs = 25
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
-
+#%% Training 
 for epoch in tqdm(range(epochs)):
     size = len(train_dataloader.dataset)
     for batch, (X, y) in enumerate(train_dataloader):
-        # breakpoint()
         pred = model(X)
         loss = loss_fn(pred, y)
 
@@ -89,7 +92,7 @@ for epoch in tqdm(range(epochs)):
             loss, current = loss.item(), batch * len(X)
             print(f"Epoch: {epoch+1}, Loss: {loss:.6f}, Progress: [{current}/{size}]")
 
-
+#%%  
 # Test the model
 model.eval()
 y_pred = []
@@ -101,14 +104,15 @@ with torch.no_grad():
     all_labels = []
 
     for X, y in test_dataloader:
+        # breakpoint()
         preds = model(X)
         all_preds.extend(preds.argmax(1).numpy())  # Get the predicted classes
         all_labels.extend(y.numpy())
-
+#%%  
 # Convert list to NumPy arrays for Scikit-Learn
 all_preds = np.array(all_preds)
 all_labels = np.array(all_labels)
-
+#%%  
 # Classification report
 report = classification_report(
     all_labels, all_preds, target_names=[str(i) for i in range(10)]
