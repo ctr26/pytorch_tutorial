@@ -105,7 +105,6 @@ for epoch in tqdm(range(epochs)):
 
         pred = model(X)
         loss = loss_fn(pred, y)
-        # loss = loss_fn(y, y)
 
         optimizer.zero_grad()
         loss.backward()

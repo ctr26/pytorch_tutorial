@@ -13,6 +13,7 @@ import numpy as np
 
 torch.manual_seed(42)
 
+
 class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
