@@ -1,0 +1,18 @@
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10  # Specify your Python version here
+  - pip
+  - pytorch
+  - torchvision
+  - timm
+  - monai
+  - conda-forge:scipy
+  - conda-forge:matplotlib
+  - conda-forge:scikit-learn
+  - pip:
+    - torch
+    - torchvision
+    - scipy
