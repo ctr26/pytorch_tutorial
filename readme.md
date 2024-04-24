@@ -28,6 +28,14 @@ conda activate ./env
 GPU support is recommended for the advanced exercises, as they involve training deep neural networks on large datasets.
 If you don't have a GPU, you can use Google Colab or Kaggle notebooks to run the exercises.
 
+
+| Notebook Title | Colab Link |
+|----------------|------------|
+| Exercise 1 - MLP Buggy | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ctr26/pytorch_tutorial/blob/master/exercise_1_mlp_buggy.ipynb) |
+| Exercise 2 - ResNet18 | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ctr26/pytorch_tutorial/blob/master/exercise_2_resnet18.ipynb) |
+| Exercise 3 - U-Net | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ctr26/pytorch_tutorial/blob/master/exercise_3_unet.ipynb) |
+
+
 ### Exercise 1: Fixing a Buggy MLP Model (Beginner)
 
 *   **Objective**: Learn to build and debug a basic MLP using PyTorch.
