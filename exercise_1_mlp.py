@@ -78,8 +78,11 @@ for epoch in tqdm(range(epochs)):
         pred = model(X)
         loss = loss_fn(pred, y)
 
+        # Clear old gradients
         optimizer.zero_grad()
+        # Compute derivatives
         loss.backward()
+        # Update the weights of the model using the optimizer
         optimizer.step()
 
         if batch % 100 == 0:
