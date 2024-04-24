@@ -12,6 +12,7 @@ dependencies:
   - conda-forge:scipy
   - conda-forge:matplotlib
   - conda-forge:scikit-learn
+  - jupyter
   - pip:
     - torch
     - torchvision
