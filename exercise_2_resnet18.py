@@ -1,3 +1,4 @@
+# %%
 # Learning point:
 # Working with RGB images and pretrained models
 # Using a pretrained model for transfer learning
@@ -22,7 +23,7 @@ from tqdm import tqdm
 import torchvision.models as models
 
 torch.manual_seed(42)
-
+# %%
 device = torch.device("cpu")
 
 if torch.backends.mps.is_available():
@@ -32,10 +33,11 @@ if torch.cuda.is_available():
 
 print(f"Using device: {device}")
 # Model pretrained on imagenet
-
+# %%
 resnet18 = models.resnet18(pretrained=True).to(device)
 fc = nn.Linear(1000, 10)
 model = nn.Sequential(resnet18, fc)
+# %%
 # Larger transformation pipeline for imagenet
 transform = transforms.Compose(
     [
@@ -47,7 +49,7 @@ transform = transforms.Compose(
         transforms.Normalize((0.5,), (0.5,)),
     ]
 )
-
+# %%
 train_data = datasets.CIFAR10(
     root="./data/CIFAR10", train=True, transform=transform, download=True
 )
@@ -61,13 +63,13 @@ test_dataloader = DataLoader(
     batch_size=64,
     shuffle=True,
 )
-
+# %%
 
 learning_rate = 1e-3
 epochs = 100
 loss_fn = nn.CrossEntropyLoss().to(device)
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
-
+# %%
 model = model.to(device)
 
 for epoch in tqdm(range(epochs)):
@@ -86,14 +88,14 @@ for epoch in tqdm(range(epochs)):
             loss, current = loss.item(), batch * len(X)
             print(f"Epoch: {epoch+1}, Loss: {loss:.6f}, Progress: [{current}/{size}]")
 
-
+# %%
 # Test the model cross validation
 
 
 model.eval()
 y_pred = []
 y_true = []
-
+# %%
 # Disable gradient computation for evaluation to save memory and computations
 with torch.no_grad():
     all_preds = []

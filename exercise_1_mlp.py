@@ -1,3 +1,4 @@
+# %%
 # Learning point: understand basic PyTorch concepts and how to train a simple MLP model
 
 """
@@ -72,6 +73,7 @@ assert model(test_tensor[0]).shape == (1, 10), "Model output shape is incorrect"
 learning_rate = 1e-3
 epochs = 25
 loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 #%% Training 
