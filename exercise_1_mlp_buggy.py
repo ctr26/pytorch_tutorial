@@ -20,7 +20,7 @@ class NeuralNetwork(nn.Module):
         super(NeuralNetwork, self).__init__()
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(28 * 28, 511),
+            nn.Linear(28 * 28, 512),
             nn.ReLU(),
             nn.Linear(512, 512),
             nn.ReLU(),
@@ -71,8 +71,8 @@ assert model(test_tensor[0]).shape == (1, 10), "Model output shape is incorrect"
 #%%  
 learning_rate = 1e-3
 epochs = 25
-# loss_fn = nn.CrossEntropyLoss()
-loss_fn = nn.MSELoss()
+loss_fn = nn.CrossEntropyLoss()
+# loss_fn = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 #%% Training 
@@ -80,7 +80,7 @@ for epoch in tqdm(range(epochs)):
     size = len(train_dataloader.dataset)
     for batch, (X, y) in enumerate(train_dataloader):
         pred = model(X)
-        loss = loss_fn(y, y)
+        loss = loss_fn(pred, pred)
 
         # Clear old gradients
         optimizer.zero_grad()

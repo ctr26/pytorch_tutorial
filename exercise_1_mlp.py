@@ -1,5 +1,4 @@
-# %%
-# Learning point: understand basic PyTorch concepts and how to train a simple MLP model
+#%% Learning point: understand basic PyTorch concepts and how to train a simple MLP model
 
 """
 Task:  fix this buggy code in the code
@@ -73,7 +72,6 @@ assert model(test_tensor[0]).shape == (1, 10), "Model output shape is incorrect"
 learning_rate = 1e-3
 epochs = 25
 loss_fn = nn.CrossEntropyLoss()
-loss_fn = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 #%% Training 
@@ -81,7 +79,7 @@ for epoch in tqdm(range(epochs)):
     size = len(train_dataloader.dataset)
     for batch, (X, y) in enumerate(train_dataloader):
         pred = model(X)
-        loss = loss_fn(pred, y)
+        loss = loss_fn(pred,y)
 
         # Clear old gradients
         optimizer.zero_grad()
