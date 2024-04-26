@@ -33,8 +33,9 @@ if torch.cuda.is_available():
 print(f"Using device: {device}")
 # Model pretrained on imagenet
 
-model = models.resnet18(pretrained=True).to(device)
-
+resnet18 = models.resnet18(pretrained=True).to(device)
+fc = nn.Linear(1000, 10)
+model = nn.Sequential(resnet18, fc)
 # Larger transformation pipeline for imagenet
 transform = transforms.Compose(
     [
@@ -99,8 +100,8 @@ with torch.no_grad():
     all_labels = []
 
     for X, y in test_dataloader:
-        X = X  # No device assignment since it defaults to CPU in your script
-        preds = model(X)
+        X = X.device()  # No device assignment since it defaults to CPU in your script
+        preds = model(X).to(device).cpu()
         all_preds.extend(preds.argmax(1).numpy())  # Get the predicted classes
         all_labels.extend(y.numpy())
 
