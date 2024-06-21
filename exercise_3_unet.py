@@ -5,6 +5,10 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 import torchvision.models as models
+from monai.transforms import (
+    AsDiscrete,
+)
+
 # !pip install monai
 import monai
 from PIL import Image
@@ -86,7 +90,6 @@ y_test = F.to_pil_image(train_data[0][1]).save("y_test.png")
 learning_rate = 1e-4
 epochs = 100
 # Dice is a log loss function so negative values are expected
-loss_function = monai.losses.DiceLoss(softmax=True)
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 loss_fn = monai.losses.DiceLoss(sigmoid=True)
 
@@ -101,9 +104,9 @@ model = model.to(device)
 for epoch in tqdm(range(epochs)):
     size = len(train_dataloader.dataset)
     for batch, (X, y) in enumerate(train_dataloader):
+        y = AsDiscrete(threshold=-0.9)(y).to(device)
         X = X.to(device)
         y = y.to(device)
-
         pred = model(X)
         loss = loss_fn(pred, y)
 
